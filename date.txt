@@ -1,0 +1,71 @@
+# ============================================================
+# date.txt  -  Sistem Cinematograf
+# ============================================================
+# Format sectiuni: [FILME]  [SALI]  [REZERVARI]
+# Linii cu # sunt comentarii si sunt ignorate.
+# ============================================================
+
+[FILME]
+# titlu|gen|durata(min)|rating|an_aparitie
+Inception|Sci-Fi|148|8.8|2010
+Interstellar|Sci-Fi|169|8.6|2014
+The Dark Knight|Actiune|152|9.0|2008
+Parasite|Drama|132|8.5|2019
+Dune|Sci-Fi|155|8.0|2021
+La La Land|Romantic|128|8.0|2016
+Oppenheimer|Drama|180|8.4|2023
+Avatar 2|Sci-Fi|192|7.6|2022
+John Wick|Actiune|101|7.4|2014
+Past Lives|Romantic|106|7.9|2023
+
+[SALI]
+# id|nume|capacitate|tip
+1|Sala Albastra|30|2D
+2|Sala Rosie|40|3D
+3|Sala IMAX|50|IMAX
+4|Sala Mica|20|2D
+
+[REZERVARI]
+# antet: id_sala|titlu_film|data_ora
+# bilete: nr_loc(0-based)|tip_bilet|pret_baza
+# separator intre rezervari: ---
+
+1|Inception|25/03/2025 20:00
+0|adult|35.0
+1|copil|35.0
+2|senior|35.0
+3|student|35.0
+4|adult|35.0
+---
+2|The Dark Knight|25/03/2025 18:00
+0|adult|40.0
+1|adult|40.0
+2|copil|40.0
+3|student|40.0
+---
+3|Oppenheimer|26/03/2025 19:30
+0|adult|55.0
+1|adult|55.0
+2|student|55.0
+3|senior|55.0
+4|adult|55.0
+---
+1|Interstellar|27/03/2025 20:00
+5|adult|35.0
+6|adult|35.0
+7|senior|35.0
+---
+2|Dune|26/03/2025 21:00
+8|adult|40.0
+9|senior|40.0
+10|copil|40.0
+---
+4|La La Land|28/03/2025 17:00
+0|adult|30.0
+1|student|30.0
+2|copil|30.0
+---
+3|Avatar 2|27/03/2025 17:00
+10|adult|55.0
+11|student|55.0
+---
