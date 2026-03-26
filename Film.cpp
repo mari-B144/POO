@@ -15,8 +15,8 @@ Film::Film() {
 Film::Film(const char* t, const char* g, int dur, float rat, int an) {
     titlu = new char[std::strlen(t) + 1]; std::strcpy(titlu, t);
     gen   = new char[std::strlen(g) + 1]; std::strcpy(gen,   g);
-    durata      = durataValida(dur) ? dur  : 90;
-    rating      = ratingValid(rat)  ? rat  : 0.0f;
+    durata      = (dur > 0) ? dur  : 90;
+    rating      = (rat >= 0.0f && rat <= 10.0f) ? rat : 0.0f;
     an_aparitie = an;
     contor++;
 }
@@ -50,25 +50,9 @@ Film& Film::operator=(const Film& f) {
 
 std::ostream& operator<<(std::ostream& out, const Film& f) {
     out << "[Film] \"" << f.titlu << "\""
-        << "  Gen: "     << f.gen
-        << "  Durata: "  << f.durata  << " min"
-        << "  Rating: "  << f.rating
-        << "  An: "      << f.an_aparitie;
+        << "  Gen: "    << f.gen
+        << "  Durata: " << f.durata  << " min"
+        << "  Rating: " << f.rating
+        << "  An: "     << f.an_aparitie;
     return out;
 }
-
-void Film::setTitlu(const char* t) {
-    delete[] titlu;
-    titlu = new char[std::strlen(t) + 1]; std::strcpy(titlu, t);
-}
-void Film::setGen(const char* g) {
-    delete[] gen;
-    gen = new char[std::strlen(g) + 1]; std::strcpy(gen, g);
-}
-void Film::setDurata(int d)   { if (durataValida(d)) durata = d; }
-void Film::setRating(float r) { if (ratingValid(r))  rating = r; }
-void Film::setAnAparitie(int a) { an_aparitie = a; }
-
-bool Film::esteDeGen(const char* g)  const { return std::strcmp(gen, g) == 0; }
-bool Film::areRatingMinim(float min) const { return rating >= min; }
-bool Film::esteRecent(int an_curent) const { return (an_curent - an_aparitie) <= 2; }

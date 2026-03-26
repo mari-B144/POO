@@ -28,7 +28,7 @@ Bilet::Bilet(int loc, const char* tip, float pret) {
 }
 
 Bilet::Bilet(const Bilet& b) {
-    id_bilet  = urmatorul_id++;   // bilet nou inseamna ID nou
+    id_bilet  = urmatorul_id++;
     nr_loc    = b.nr_loc;
     pret_baza = b.pret_baza;
     tip_bilet = new char[std::strlen(b.tip_bilet) + 1];
@@ -44,7 +44,6 @@ Bilet::~Bilet() {
 Bilet& Bilet::operator=(const Bilet& b) {
     if (this == &b) return *this;
     delete[] tip_bilet;
-    // id_bilet ramane al obiectului curent (nu se copiaza)
     nr_loc    = b.nr_loc;
     pret_baza = b.pret_baza;
     tip_bilet = new char[std::strlen(b.tip_bilet) + 1];
@@ -56,26 +55,20 @@ std::ostream& operator<<(std::ostream& out, const Bilet& b) {
     out << "[Bilet #" << b.id_bilet << "]"
         << "  Loc:" << b.nr_loc + 1
         << "  Tip:" << b.tip_bilet
-        << "  Pret baza:" << b.pret_baza << " RON";
-    if (b.areReducere())
-        out << "  => Pret final:" << b.pretFinal() << " RON"
-            << " (-" << b.procentReducere() * 100 << "%)";
-    else
-        out << "  => Pret final:" << b.pretFinal() << " RON";
+        << "  Pret baza:" << b.pret_baza << " RON"
+        << "  => Final:" << b.pretFinal() << " RON";
+    if (b.procentReducere() > 0.0f)
+        out << " (-" << b.procentReducere() * 100 << "%)";
     return out;
 }
 
-void Bilet::setTipBilet(const char* tip) {
-    delete[] tip_bilet;
-    tip_bilet = new char[std::strlen(tip) + 1]; std::strcpy(tip_bilet, tip);
+float Bilet::pretFinal() const {
+    return pret_baza * (1.0f - procentReducere());
 }
-void Bilet::setPretBaza(float p) { if (p > 0) pret_baza = p; }
 
-float Bilet::pretFinal()       const { return pret_baza * (1.0f - procentReducere()); }
-float Bilet::valoareReducere() const { return pret_baza * procentReducere(); }
-bool  Bilet::areReducere()     const { return procentReducere() > 0.0f; }
-
-void Bilet::afiseazaChitanta(const char* titlu_film, int id_sala,const char* data) const {
+void Bilet::afiseazaChitanta(const char* titlu_film,
+                              int id_sala,
+                              const char* data) const {
     std::cout << "  +--------------------------------------+\n";
     std::cout << "  |        CINEMATOGRAF  -  BILET        |\n";
     std::cout << "  +--------------------------------------+\n";
@@ -86,8 +79,8 @@ void Bilet::afiseazaChitanta(const char* titlu_film, int id_sala,const char* dat
     std::cout << "  | Loc    : " << nr_loc + 1 << "\n";
     std::cout << "  | Tip    : " << tip_bilet << "\n";
     std::cout << "  | Baza   : " << pret_baza << " RON\n";
-    if (areReducere())
-        std::cout << "  | Reduc. : -" << valoareReducere()
+    if (procentReducere() > 0.0f)
+        std::cout << "  | Reduc. : -" << pret_baza * procentReducere()
                   << " RON (" << procentReducere() * 100 << "%)\n";
     std::cout << "  +--------------------------------------+\n";
     std::cout << "  | TOTAL  : " << pretFinal() << " RON\n";

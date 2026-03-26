@@ -62,41 +62,29 @@ std::ostream& operator<<(std::ostream& out, const Sala& s) {
     return out;
 }
 
-void Sala::setNume(const char* n) {
-    delete[] nume;
-    nume = new char[std::strlen(n) + 1]; std::strcpy(nume, n);
-}
-void Sala::setTipSala(const char* t) {
-    delete[] tip_sala;
-    tip_sala = new char[std::strlen(t) + 1]; std::strcpy(tip_sala, t);
-}
-
 bool Sala::ocupaLoc(int idx) {
     if (!idxValid(idx) || locuri[idx]) return false;
     locuri[idx] = true;
     return true;
 }
+
 bool Sala::elibereazaLoc(int idx) {
     if (!idxValid(idx) || !locuri[idx]) return false;
     locuri[idx] = false;
     return true;
 }
+
 bool Sala::esteDisponibil(int idx) const {
     if (!idxValid(idx)) return false;
     return !locuri[idx];
 }
+
 int Sala::locuriDisponibile() const {
     int n = 0;
     for (int i = 0; i < capacitate; i++) if (!locuri[i]) n++;
     return n;
 }
-int Sala::primulLocLiber() const {
-    for (int i = 0; i < capacitate; i++) if (!locuri[i]) return i;
-    return -1;
-}
-void Sala::resetLocuri() {
-    for (int i = 0; i < capacitate; i++) locuri[i] = false;
-}
+
 void Sala::afiseazaHartaLocuri() const {
     const int PE_RAND = 10;
     std::cout << "\n  Harta \"" << nume << "\" [O=ocupat  L=liber]\n  ";
@@ -106,6 +94,7 @@ void Sala::afiseazaHartaLocuri() const {
     }
     std::cout << "\n";
 }
+
 float Sala::procentOcupare() const {
     if (capacitate == 0) return 0.0f;
     int ocupate = capacitate - locuriDisponibile();

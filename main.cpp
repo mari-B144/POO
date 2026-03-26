@@ -43,7 +43,6 @@ static void citesteStr(const char* prompt, char* buf, int maxlen) {
     if (!std::cin.good()) { clearInput(); buf[0] = '\0'; }
 }
 
-
 static void listeazaRezervari(const Rezervare* rez, int nr) {
     if (nr == 0) {
         std::cout << "  (nu exista rezervari incarcate)\n";
@@ -53,9 +52,9 @@ static void listeazaRezervari(const Rezervare* rez, int nr) {
         std::cout << "  [" << i << "] " << rez[i] << "\n";
 }
 
-static int citesteIndex(int nr) {
+static int citesteIndex(const Rezervare* rez, int nr) {
     if (nr == 0) { std::cout << "  (nicio rezervare disponibila)\n"; return -1; }
-    listeazaRezervari(nullptr, 0); // nu afisam nimic, doar prompt
+    listeazaRezervari(rez, nr);
     int idx = citesteInt("  Selectati indexul rezervarii: ");
     if (idx < 0 || idx >= nr) {
         std::cout << "  [!] Index invalid. Trebuie intre 0 si " << nr - 1 << ".\n";
@@ -63,7 +62,6 @@ static int citesteIndex(int nr) {
     }
     return idx;
 }
-
 
 static void afiseazaMeniu() {
     std::cout << "\n";
@@ -82,7 +80,6 @@ static void afiseazaMeniu() {
     std::cout << "  Alegeti optiunea: ";
 }
 
-
 int main() {
 
     linie('*');
@@ -90,7 +87,7 @@ int main() {
     linie('*');
     std::cout << "\n  Incarcare date din date.txt ...\n\n";
 
-    Rezervare* rezervari = nullptr;
+    Rezervare* rezervari = 0;
     int cap_rez = 0;
     int nr_rez  = Rezervare::incarcaDinFisier("date.txt", rezervari, cap_rez);
 
@@ -118,26 +115,22 @@ int main() {
             listeazaRezervari(rezervari, nr_rez);
             break;
         }
-
         case 2: {
             linie();
             std::cout << "  HARTA LOCURI SALA\n";
             linie();
-            listeazaRezervari(rezervari, nr_rez);
-            int idx = citesteIndex(nr_rez);
+            int idx = citesteIndex(rezervari, nr_rez);
             if (idx >= 0) {
                 std::cout << "  " << rezervari[idx].getSala() << "\n";
                 rezervari[idx].afiseazaHartaSala();
             }
             break;
         }
-
         case 3: {
             linie();
             std::cout << "  VANZARE BILET MANUAL\n";
             linie();
-            listeazaRezervari(rezervari, nr_rez);
-            int idx = citesteIndex(nr_rez);
+            int idx = citesteIndex(rezervari, nr_rez);
             if (idx < 0) break;
 
             if (!rezervari[idx].areLocuriDisponibile()) {
@@ -160,13 +153,11 @@ int main() {
             rezervari[idx].adaugaBilet(loc, tip, pret);
             break;
         }
-
         case 4: {
             linie();
             std::cout << "  ANULARE BILET\n";
             linie();
-            listeazaRezervari(rezervari, nr_rez);
-            int idx = citesteIndex(nr_rez);
+            int idx = citesteIndex(rezervari, nr_rez);
             if (idx < 0) break;
 
             if (rezervari[idx].getNrBilete() == 0) {
@@ -179,13 +170,11 @@ int main() {
             rezervari[idx].anuleazaBilet(id_bilet);
             break;
         }
-
         case 5: {
             linie();
             std::cout << "  INCASARI PER TIP BILET\n";
             linie();
-            listeazaRezervari(rezervari, nr_rez);
-            int idx = citesteIndex(nr_rez);
+            int idx = citesteIndex(rezervari, nr_rez);
             if (idx < 0) break;
 
             float a, c, s, st;
@@ -203,7 +192,6 @@ int main() {
                       << rezervari[idx].incasareTotala() << " RON\n";
             break;
         }
-
         case 6: {
             linie();
             std::cout << "  INCASARE TOTALA GLOBALA\n";
@@ -213,13 +201,11 @@ int main() {
             std::cout << "  Total incasat    : " << total << " RON\n";
             break;
         }
-        
         case 7: {
             linie();
             std::cout << "  AFISARE CHITANTA BILET\n";
             linie();
-            listeazaRezervari(rezervari, nr_rez);
-            int idx = citesteIndex(nr_rez);
+            int idx = citesteIndex(rezervari, nr_rez);
             if (idx < 0) break;
 
             if (rezervari[idx].getNrBilete() == 0) {
@@ -232,15 +218,12 @@ int main() {
             rezervari[idx].afiseazaChitantaBilet(id_b);
             break;
         }
-
         default: {
-            std::cout << "  [!] Optiune invalida. Alegeti intre 0 si 11.\n";
+            std::cout << "  [!] Optiune invalida. Alegeti intre 0 si 7.\n";
             break;
         }
-
-        } 
-
-    } 
+        }
+    }
 
     delete[] rezervari;
     return 0;
