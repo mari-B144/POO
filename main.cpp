@@ -1,54 +1,9 @@
-/*
- * ============================================================
- * PROIECT POO  -  Sistem de Management Cinematograf
- * ============================================================
- *
- * DESCRIEREA PROBLEMEI:
- * ─────────────────────
- * Se modeleaza sistemul informatic al unui cinematograf care
- * gestioneaza filme, sali de proiectie, rezervari si bilete.
- *
- * Date de intrare (un singur fisier: date.txt):
- *   Sectiunea [FILME]     : titlu|gen|durata|rating|an
- *   Sectiunea [SALI]      : id|nume|capacitate|tip
- *   Sectiunea [REZERVARI] : antet (sala + film + data) urmat de
- *                           linii de bilete (loc|tip|pret_baza),
- *                           rezervarile sunt separate prin "---"
- *
- * Operatii posibile (meniu interactiv):
- *   1.  Afisare toate rezervarile
- *   2.  Raport detaliat rezervare
- *   3.  Harta locuri sala
- *   4.  Vanzare bilet manual
- *   5.  Anulare bilet
- *   6.  Incasari per tip bilet
- *   7.  Cautare rezervari dupa gen film
- *   8.  Cautare filme cu rating minim
- *   9.  Top N rezervari dupa incasare
- *   10. Incasare totala globala
- *   11. Afisare chitanta bilet
- *   0.  Iesire
- *
- * CLASE DEFINITE:
- *   Film      : titlu, gen, durata, rating, an_aparitie
- *   Sala      : id, capacitate, locuri[] (bool, dinamic), tip
- *   Bilet     : loc, tip, pret_baza, reducere automata
- *   Rezervare : Film + Sala + vector<Bilet> + data_ora
- *
- * Toate clasele: constructor cu parametri, constructor de
- * copiere, operator=, destructor, operator<<, contor static,
- * atribute private, getteri/setteri, metode private. Fara STL.
- * ============================================================
- */
-
 #include <iostream>
 #include <limits>
 #include "Film.h"
 #include "Sala.h"
 #include "Bilet.h"
 #include "Rezervare.h"
-
-// ─── utilitare I/O ────────────────────────────────────────────────────────────
 
 static void linie(char c = '-', int n = 52) {
     for (int i = 0; i < n; i++) std::cout << c;
@@ -88,7 +43,6 @@ static void citesteStr(const char* prompt, char* buf, int maxlen) {
     if (!std::cin.good()) { clearInput(); buf[0] = '\0'; }
 }
 
-// ─── afisare lista rezervari (cu index) ──────────────────────────────────────
 
 static void listeazaRezervari(const Rezervare* rez, int nr) {
     if (nr == 0) {
@@ -99,7 +53,6 @@ static void listeazaRezervari(const Rezervare* rez, int nr) {
         std::cout << "  [" << i << "] " << rez[i] << "\n";
 }
 
-// cere un index valid; returneaza -1 daca e invalid
 static int citesteIndex(int nr) {
     if (nr == 0) { std::cout << "  (nicio rezervare disponibila)\n"; return -1; }
     listeazaRezervari(nullptr, 0); // nu afisam nimic, doar prompt
@@ -111,7 +64,6 @@ static int citesteIndex(int nr) {
     return idx;
 }
 
-// ─── meniu ───────────────────────────────────────────────────────────────────
 
 static void afiseazaMeniu() {
     std::cout << "\n";
@@ -130,12 +82,11 @@ static void afiseazaMeniu() {
     std::cout << "  Alegeti optiunea: ";
 }
 
-// ─── main ────────────────────────────────────────────────────────────────────
 
 int main() {
 
     linie('*');
-    std::cout << "   SISTEM MANAGEMENT CINEMATOGRAF  -  v1.0\n";
+    std::cout << "       CINEMATOGRAF BUCURESTI         \n";
     linie('*');
     std::cout << "\n  Incarcare date din date.txt ...\n\n";
 
@@ -155,15 +106,11 @@ int main() {
         std::cout << "\n";
 
         switch (optiune) {
-
-        // ── 0. Iesire ────────────────────────────────────────────────────────
         case 0: {
             std::cout << "  La revedere!\n";
             delete[] rezervari;
             return 0;
         }
-
-        // ── 1. Afisare toate rezervarile ─────────────────────────────────────
         case 1: {
             linie();
             std::cout << "  TOATE REZERVARILE (" << nr_rez << ")\n";
@@ -172,8 +119,6 @@ int main() {
             break;
         }
 
-
-        // ── 2. Harta locuri ───────────────────────────────────────────────────
         case 2: {
             linie();
             std::cout << "  HARTA LOCURI SALA\n";
@@ -187,7 +132,6 @@ int main() {
             break;
         }
 
-        // ── 3. Vanzare bilet manual ───────────────────────────────────────────
         case 3: {
             linie();
             std::cout << "  VANZARE BILET MANUAL\n";
@@ -217,7 +161,6 @@ int main() {
             break;
         }
 
-        // ── 4. Anulare bilet ──────────────────────────────────────────────────
         case 4: {
             linie();
             std::cout << "  ANULARE BILET\n";
@@ -237,7 +180,6 @@ int main() {
             break;
         }
 
-        // ── 5. Incasari per tip bilet ─────────────────────────────────────────
         case 5: {
             linie();
             std::cout << "  INCASARI PER TIP BILET\n";
@@ -262,7 +204,6 @@ int main() {
             break;
         }
 
-        // ── 6. Incasare totala globala ───────────────────────────────────────
         case 6: {
             linie();
             std::cout << "  INCASARE TOTALA GLOBALA\n";
