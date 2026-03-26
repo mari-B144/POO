@@ -35,7 +35,8 @@
  *   FORMAT BILET: nr_loc|tip|pret_baza   (linii sub rezervare, pana la linie goala)
  */
 class Rezervare {
-private:
+    
+    private:
     int    id_rezervare;
     Film   film;
     Sala   sala;
@@ -50,7 +51,7 @@ private:
 
     void extindBilete();
 
-public:
+    public:
     Rezervare();
     Rezervare(const Film& film, const Sala& sala, const char* data_ora);
     Rezervare(const Rezervare& r);
@@ -68,8 +69,6 @@ public:
 
     // Setteri
     void setDataOra(const char* d);
-
-    // ── Functionalitati complexe ──────────────────────────────────────────
 
     // 1. Adauga bilet: verifica daca locul e disponibil in sala,
     //    ocupa locul si adauga biletul in vector. Returneaza true la succes.

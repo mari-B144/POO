@@ -28,7 +28,7 @@ Bilet::Bilet(int loc, const char* tip, float pret) {
 }
 
 Bilet::Bilet(const Bilet& b) {
-    id_bilet  = urmatorul_id++;   // bilet nou => ID nou
+    id_bilet  = urmatorul_id++;   // bilet nou inseamna ID nou
     nr_loc    = b.nr_loc;
     pret_baza = b.pret_baza;
     tip_bilet = new char[std::strlen(b.tip_bilet) + 1];
@@ -75,9 +75,7 @@ float Bilet::pretFinal()       const { return pret_baza * (1.0f - procentReducer
 float Bilet::valoareReducere() const { return pret_baza * procentReducere(); }
 bool  Bilet::areReducere()     const { return procentReducere() > 0.0f; }
 
-void Bilet::afiseazaChitanta(const char* titlu_film,
-                              int id_sala,
-                              const char* data) const {
+void Bilet::afiseazaChitanta(const char* titlu_film, int id_sala,const char* data) const {
     std::cout << "  +--------------------------------------+\n";
     std::cout << "  |        CINEMATOGRAF  -  BILET        |\n";
     std::cout << "  +--------------------------------------+\n";

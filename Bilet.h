@@ -23,7 +23,8 @@
  - afisare chitanta formatata
  */
 class Bilet {
-private:
+
+    private:
     int   id_bilet;
     int   nr_loc;
     char* tip_bilet;
@@ -34,7 +35,7 @@ private:
 
     float procentReducere() const;   // returneaza 0.30, 0.20, 0.15 sau 0.0
 
-public:
+    public:
     Bilet();
     Bilet(int nr_loc, const char* tip, float pret_baza);
     Bilet(const Bilet& b);

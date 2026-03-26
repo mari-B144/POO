@@ -213,8 +213,7 @@ int main() {
             std::cout << "  Total incasat    : " << total << " RON\n";
             break;
         }
-
-        // ── 7. Chitanta bilet ────────────────────────────────────────────────
+        
         case 7: {
             linie();
             std::cout << "  AFISARE CHITANTA BILET\n";
