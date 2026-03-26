@@ -417,3 +417,17 @@ float incasareTotalaGlobala(const Rezervare* rezervari, int nr) {
     for (int i = 0; i < nr; i++) total += rezervari[i].incasareTotala();
     return total;
 }
+
+// afiseazaChitantaBilet - adaugat pentru meniu interactiv
+void Rezervare::afiseazaChitantaBilet(int id_bilet) const {
+    for (int i = 0; i < nr_bilete; i++) {
+        if (bilete[i].getIdBilet() == id_bilet) {
+            bilete[i].afiseazaChitanta(film.getTitlu(),
+                                       sala.getIdSala(),
+                                       data_ora);
+            return;
+        }
+    }
+    std::cout << "  [EROARE] Bilet #" << id_bilet
+              << " negasit in aceasta rezervare.\n";
+}

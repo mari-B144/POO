@@ -95,6 +95,9 @@ public:
     // 7. Afisare harta locuri din sala
     void afiseazaHartaSala() const { sala.afiseazaHartaLocuri(); }
 
+    // 8. Afisare chitanta pentru biletul cu id-ul dat (-1 => eroare)
+    void afiseazaChitantaBilet(int id_bilet) const;
+
     // ── Citire din fisier ─────────────────────────────────────────────────
     // Incarca toate rezervarile din sectiunea [REZERVARI] a fisierului date.txt
     // Populeaza vectorul rezervari[] si actualizeaza nr_rez.
