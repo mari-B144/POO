@@ -15,3 +15,15 @@ Se modeleaza sistemul informatic al unui cinematograf care gestioneaza filme, sa
 5. Incasari per tip bilet
 6. Incasare totala globala
 7. Afisare chitanta bilet
+
+
+## Fisierul date.txt
+[FILME]
+titlu|gen|durata|rating|an
+ 
+[SALI]
+id|nume|capacitate|tip
+ 
+[REZERVARI]
+id_sala|titlu_film|data_ora
+nr_loc|tip_bilet|pret_baza

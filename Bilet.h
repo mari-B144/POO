@@ -5,16 +5,16 @@
 #include <cstring>
 
 /*
- * Clasa Bilet reprezinta un bilet emis pentru un loc dintr-o rezervare.
- *
- * Atribute:
- *   - id_bilet   : numar unic auto-incrementat (static)
- *   - nr_loc     : indexul locului in sala (0-based)
- *   - tip_bilet  : "adult" | "copil" | "senior" | "student"
- *   - pret_baza  : pretul inainte de reducere (RON)
- *
- * Reduceri aplicate automat:
- *   copil -30%  |  senior -20%  |  student -15%  |  adult 0%
+ Clasa Bilet reprezinta un bilet emis pentru un loc dintr-o rezervare.
+ 
+ Atribute:
+ -id_bilet   : numar unic auto-incrementat (static)
+ -nr_loc     : indexul locului in sala (0-based)
+ -tip_bilet  : "adult" | "copil" | "senior" | "student"
+ -pret_baza  : pretul inainte de reducere (RON)
+ 
+ Reduceri aplicate automat:
+ copil -30%,  senior -20%, student -15%
  */
 class Bilet {
 private:

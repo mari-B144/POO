@@ -1,5 +1,4 @@
 #include <iostream>
-#include <limits>
 #include "Film.h"
 #include "Sala.h"
 #include "Bilet.h"
@@ -12,7 +11,7 @@ static void linie(char c = '-', int n = 52) {
 
 static void clearInput() {
     std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.ignore(1000, '\n'); //practic sterg \n din bufferul de intrare retinut cu std::cin, pt a nu trimite un string go funtctiilor
 }
 
 static int citesteInt(const char* prompt) {
